@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  domoticz:
+    image: tloxipeuhca/domoticz-wiringpi-docker 
+    container_name: domoticz-tlo
+    restart: unless-stopped
+    privileged: true
+    # Pass devices to container
+    # devices:
+    #   - "/dev/serial/by-id/usb-0658_0200-if00:/dev/ttyACM0"
+    ports:
+      - "8094:8080"
+      - "8095:443"
+    volumes:
+      - ./config:/opt/domoticz/userdata
+      - /dev/gpiomem:/dev/gpiomem
+    environment:
+      - TZ=Europe/Amsterdam
+      - LOG_PATH=/opt/domoticz/userdata/domoticz.log
+      - SSL_PORT=443
+      - EXTRA_CMD_ARG=-sslcert /opt/domoticz/userdata/server_cert.pem
