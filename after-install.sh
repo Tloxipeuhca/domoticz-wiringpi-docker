@@ -1,4 +1,5 @@
 docker-compose up -d
+docker-compose down
 PEM=domoticz.pem
 if [ -f $PEM ]; then
   sudo cp $PEM config/server_cert.pem
@@ -13,4 +14,4 @@ sudo chmod +x ./Domoticz-Zigate/plugin.py
 sudo git clone https://github.com/Smanar/Domoticz-deCONZ.git
 sudo chmod +x ./Domoticz-deCONZ/plugin.py
 cd ../..
-docker-compose restart
+docker-compose up -d
